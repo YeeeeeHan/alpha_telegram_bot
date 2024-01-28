@@ -31,7 +31,7 @@ def formatCoinMessage(coin_id, marketcap, fdv, market_cap_fdv_ratio, currentpric
 *_{coin_id}_*
 {"Current Price:":<20}{"$" + pretty_print_numbers(currentprice)}
 {"Market Cap:":<20}{pretty_print_numbers(marketcap)}
-{"FDV:":<25}{pretty_print_numbers(fdv)}
+{"FDV:":<26}{pretty_print_numbers(fdv)}
 {"MC/FDV ratio:":<20}{pretty_print_numbers(market_cap_fdv_ratio*100)} %
 """
 

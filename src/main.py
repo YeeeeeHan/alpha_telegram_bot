@@ -30,12 +30,9 @@ def coin_price_check(message):
         return
 
     coin_id = command_parts[1]
-    print("src/main.py:31")
     try:
-        print("src/main.py:35")
         marketcap, fdv, market_cap_fdv_ratio, currentprice = get_coin_data(
             coin_id)
-        print("src/main.py:37")
         bot.send_message(
             message.chat.id,
             formatInputForMarkdown(formatCoinMessage(coin_id,
@@ -44,10 +41,9 @@ def coin_price_check(message):
             parse_mode='MarkdownV2')
 
     except Exception as e:
-        print("src/main.py:39", e)
         bot.send_message(
             message.chat.id,
-            f"{e}",
+            formatInputForMarkdown(f"{e}"),
             parse_mode='MarkdownV2')
         return
 
