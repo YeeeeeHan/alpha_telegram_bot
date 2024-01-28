@@ -91,7 +91,7 @@ def price_alert():
                 "YT rsETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
             parse_mode='MarkdownV2')
 
-    if data_YTeeth > 32 or data_YTrseth < 33:
+    if data_YTeeth > 32 or data_YTrseth > 33:
         bot.send_message(
             getChatIdFromEnv(),
             message,
