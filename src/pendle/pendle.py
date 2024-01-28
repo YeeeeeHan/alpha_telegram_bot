@@ -90,3 +90,21 @@ def price_alert():
             formatInputForMarkdown(
                 "YT rsETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
             parse_mode='MarkdownV2')
+
+    if data_YTeeth > 32 or data_YTrseth < 33:
+        bot.send_message(
+            getChatIdFromEnv(),
+            message,
+            parse_mode='MarkdownV2')
+
+        bot.send_message(
+            getChatIdFromEnv(),
+            formatInputForMarkdown(
+                "YT eETH IS MORE THAN 325% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
+            parse_mode='MarkdownV2')
+
+        bot.send_message(
+            getChatIdFromEnv(),
+            formatInputForMarkdown(
+                "YT rsETH IS LESS THAN 33% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
+            parse_mode='MarkdownV2')
