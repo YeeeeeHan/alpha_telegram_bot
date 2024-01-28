@@ -9,7 +9,7 @@ def parseCommandSource(message: telebot.types.Message) -> int:
 
 # Find and replace all '.' with '\.'
 def formatInputForMarkdown(input):
-    return str(input).replace('.', '\.').replace('-', '\-')
+    return str(input).replace('.', '\.').replace('-', '\-').replace('=', '\=')
 
 
 def pretty_print_numbers(input):
