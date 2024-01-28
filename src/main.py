@@ -31,13 +31,12 @@ def coin_price_check(message):
 
     coin_id = command_parts[1]
     try:
-        marketcap, fdv, market_cap_fdv_ratio, currentprice = get_coin_data(
+        id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, currentprice = get_coin_data(
             coin_id)
         bot.send_message(
             message.chat.id,
-            formatInputForMarkdown(formatCoinMessage(coin_id,
-                                                     marketcap, fdv, market_cap_fdv_ratio, currentprice)
-                                   ),
+            formatInputForMarkdown(formatCoinMessage(
+                id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, currentprice)),
             parse_mode='MarkdownV2')
 
     except Exception as e:

@@ -26,9 +26,9 @@ def calculatePercentageChange(new, old):
     return (retVal, render_up_or_down(retVal))
 
 
-def formatCoinMessage(coin_id, marketcap, fdv, market_cap_fdv_ratio, currentprice):
+def formatCoinMessage(id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, currentprice):
     return f"""
-*_{coin_id}_*
+*_{name} ${symbol}_*
 {"Current Price:":<20}{"$" + pretty_print_numbers(currentprice)}
 {"Market Cap:":<20}{pretty_print_numbers(marketcap)}
 {"FDV:":<26}{pretty_print_numbers(fdv)}
@@ -36,8 +36,21 @@ def formatCoinMessage(coin_id, marketcap, fdv, market_cap_fdv_ratio, currentpric
 """
 
 
+def fuzzy_search_coin_id(coin_id):
+    url = f'https://api.coingecko.com/api/v3/search?query={coin_id}'
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+
+    if data.get('error') is not None:
+        raise (f"{data['error']}")
+
+    return data['coins'][0]['id'], data['coins'][0]['name'], data['coins'][0]['symbol']
+
+
 def get_coin_data(coin_id):
-    url = f'https://api.coingecko.com/api/v3/coins/{coin_id}'
+    id, name, symbol = fuzzy_search_coin_id(coin_id)
+    url = f'https://api.coingecko.com/api/v3/coins/{id}'
     response = requests.get(url)
     response.raise_for_status()
     coin_data = response.json()
@@ -50,7 +63,7 @@ def get_coin_data(coin_id):
     market_cap_fdv_ratio = coin_data['market_data']["market_cap_fdv_ratio"]
     current_price = coin_data['market_data']["current_price"]["usd"]
 
-    return marketcap, fdv, market_cap_fdv_ratio, current_price
+    return id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, current_price
 
 
 # def price_alert():
