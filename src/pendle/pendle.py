@@ -1,7 +1,6 @@
 import requests
 
-from config import bot
-from utils import PROD_CHAT_ID
+from config import bot, getChatIdFromEnv
 
 last_check = {
     "yt_eeth_apy": 0,
@@ -29,22 +28,21 @@ def calculateDifference(new_apy, old_apy):
     difference = new_apy - old_apy
     return round(difference, 3)
 
+
 # Find and replace all '.' with '\.'
-
-
-def formatDecimals(number):
-    return str(number).replace('.', '\.').replace('-', '\-')
+def formatInputForMarkdown(input):
+    return str(input).replace('.', '\.').replace('-', '\-')
 
 
 def formatMessage(yt_eeth_apy, yt_rseth_apy):
     return PROFILE_MESSAGE.format(
-        apy_eeth=formatDecimals(yt_eeth_apy),
-        diff_apy_eeth=formatDecimals(calculateDifference(
+        apy_eeth=formatInputForMarkdown(yt_eeth_apy),
+        diff_apy_eeth=formatInputForMarkdown(calculateDifference(
             yt_eeth_apy, last_check["yt_eeth_apy"])),
         up_or_down_eeth=render_up_or_down(calculateDifference(
             yt_eeth_apy, last_check["yt_eeth_apy"])),
-        apy_rseth=formatDecimals(yt_rseth_apy),
-        diff_apy_rseth=formatDecimals(calculateDifference(
+        apy_rseth=formatInputForMarkdown(yt_rseth_apy),
+        diff_apy_rseth=formatInputForMarkdown(calculateDifference(
             yt_rseth_apy, last_check["yt_rseth_apy"])),
         up_or_down_rseth=render_up_or_down(calculateDifference(
             yt_rseth_apy, last_check["yt_rseth_apy"]))
@@ -79,20 +77,20 @@ def price_alert():
 
     message = formatMessage(data_YTeeth, data_YTrseth)
 
-    if data_YTeeth < 0.285 or data_YTrseth < 0.285:
+    if data_YTeeth < 28.5 or data_YTrseth < 28.5:
         bot.send_message(
-            PROD_CHAT_ID,
+            getChatIdFromEnv(),
             message,
             parse_mode='MarkdownV2')
 
-        if data_YTeeth < 0.285:
-            bot.send_message(
-                PROD_CHAT_ID,
-                "YT eETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL.",
-                parse_mode='MarkdownV2')
+        bot.send_message(
+            getChatIdFromEnv(),
+            formatInputForMarkdown(
+                "YT eETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
+            parse_mode='MarkdownV2')
 
-        if data_YTrseth < 0.285:
-            bot.send_message(
-                PROD_CHAT_ID,
-                "YT rsETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL.",
-                parse_mode='MarkdownV2')
+        bot.send_message(
+            getChatIdFromEnv(),
+            formatInputForMarkdown(
+                "YT rsETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
+            parse_mode='MarkdownV2')

@@ -1,1 +1,1 @@
-from .bot import bot, logger
+from .config import bot, getChatIdFromEnv, logger
