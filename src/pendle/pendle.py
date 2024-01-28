@@ -100,11 +100,11 @@ def price_alert():
         bot.send_message(
             getChatIdFromEnv(),
             formatInputForMarkdown(
-                "YT eETH IS MORE THAN 325% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
+                "YT eETH IS MORE THAN 32% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
             parse_mode='MarkdownV2')
 
         bot.send_message(
             getChatIdFromEnv(),
             formatInputForMarkdown(
-                "YT rsETH IS LESS THAN 33% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
+                "YT rsETH IS MORE THAN 33% APY. WE ARE WAGMI BECAUSE OF HEEHAWN. TP TP TP."),
             parse_mode='MarkdownV2')
