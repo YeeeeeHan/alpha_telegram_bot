@@ -7,6 +7,27 @@ def parseCommandSource(message: telebot.types.Message) -> int:
     return message.chat.id
 
 
+# Find and replace all '.' with '\.'
+def formatInputForMarkdown(input):
+    return str(input).replace('.', '\.').replace('-', '\-')
+
+
+def pretty_print_numbers(input):
+    number = float(input)
+    if number < 0.0001:
+        return f"{number:.8f}"
+    elif number < 1:
+        return f"{number:.5f}"
+    elif number < 100:
+        return f"{number:.2f}"
+    elif number < 1_000_000:
+        return f"{number:,}"
+    elif number < 1_000_000_000:
+        return f"{number / 1_000_000:,.3f} M"
+    else:
+        return f"{number / 1_000_000_000:,.3f} B"
+
+
 # Pretty print a telebot message
 def pretty_print_telebot_message(message: telebot.types.Message):
     message_data = {

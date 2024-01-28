@@ -1,6 +1,7 @@
 import requests
 
 from config import bot, getChatIdFromEnv
+from utils import formatInputForMarkdown
 
 last_check = {
     "yt_eeth_apy": 0,
@@ -29,12 +30,7 @@ def calculateDifference(new_apy, old_apy):
     return round(difference, 3)
 
 
-# Find and replace all '.' with '\.'
-def formatInputForMarkdown(input):
-    return str(input).replace('.', '\.').replace('-', '\-')
-
-
-def formatMessage(yt_eeth_apy, yt_rseth_apy):
+def formatPendleMessage(yt_eeth_apy, yt_rseth_apy):
     return PROFILE_MESSAGE.format(
         apy_eeth=formatInputForMarkdown(yt_eeth_apy),
         diff_apy_eeth=formatInputForMarkdown(calculateDifference(
@@ -50,7 +46,7 @@ def formatMessage(yt_eeth_apy, yt_rseth_apy):
     )
 
 
-def get_data():
+def get_pendle_data():
     # Replace with your API endpoint
     url_YTrseth = 'https://api-v2.pendle.finance/core/v1/1/markets/0x4f43c77872db6ba177c270986cd30c3381af37ee'
     url_YTeeth = 'https://api-v2.pendle.finance/core/v1/1/markets/0xf32e58f92e60f4b0a37a69b95d642a471365eae8'
@@ -73,9 +69,9 @@ def get_data():
 
 
 def price_alert():
-    data_YTeeth, data_YTrseth = get_data()
+    data_YTeeth, data_YTrseth = get_pendle_data()
 
-    message = formatMessage(data_YTeeth, data_YTrseth)
+    message = formatPendleMessage(data_YTeeth, data_YTrseth)
 
     if data_YTeeth < 28.5 or data_YTrseth < 28.5:
         bot.send_message(

@@ -1,1 +1,1 @@
-from .coins import formatMessage, get_data, last_check, price_alert
+from .coins import formatCoinMessage, get_coin_data, last_check
