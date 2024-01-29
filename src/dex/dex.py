@@ -41,8 +41,6 @@ def formatDexMessage(pools):
 {"24 Change:":<20}{pool['priceChange']['h24']:.2f}%
 {pool['url']}
 """
-        print("@@@@@@@", message)
-
     return message
 # {"Market Cap:":<20}{pretty_print_numbers(marketcap)}
 # {"FDV:":<26}{pretty_print_numbers(fdv)}
@@ -68,25 +66,14 @@ def get_dex_data(coin_id):
     return pools
 
 
-# def price_alert():
-#     data_YTeeth, data_YTrseth = get_coin_data()
+def dex_price_alert():
+    pools = get_dex_data("vec")
 
-#     message = formatMessage(data_YTeeth, data_YTrseth)
+    message = formatDexMessage(pools)
 
-#     if data_YTeeth < 28.5 or data_YTrseth < 28.5:
-#         bot.send_message(
-#             getChatIdFromEnv(),
-#             message,
-#             parse_mode='MarkdownV2')
-
-#         bot.send_message(
-#             getChatIdFromEnv(),
-#             formatInputForMarkdown(
-#                 "YT eETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
-#             parse_mode='MarkdownV2')
-
-#         bot.send_message(
-#             getChatIdFromEnv(),
-#             formatInputForMarkdown(
-#                 "YT rsETH IS LESS THAN 0.285% APY. WE GOT FUCKED BY HEEHAWN. SELL SELL SELL."),
-#             parse_mode='MarkdownV2')
+    if float(pools[0]['priceUsd']) > 60:
+        bot.send_message(
+            getChatIdFromEnv(),
+            formatInputForMarkdown(message),
+            parse_mode='MarkdownV2',
+            disable_web_page_preview=True)

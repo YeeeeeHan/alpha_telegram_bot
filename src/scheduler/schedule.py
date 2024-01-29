@@ -3,6 +3,7 @@ import time
 
 import schedule
 
+from dex import dex_price_alert
 from pendle import price_alert
 
 
@@ -21,3 +22,5 @@ def start_schedule():
     # Schedule the message
     price_alert()
     schedule.every().minute.do(price_alert)
+    dex_price_alert()
+    schedule.every().minute.do(dex_price_alert)
