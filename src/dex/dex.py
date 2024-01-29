@@ -27,7 +27,6 @@ def calculatePercentageChange(new, old):
 
 
 def formatDexMessage(pools):
-    print(pools)
     message = ""
 
     for pool in pools:
@@ -39,6 +38,7 @@ def formatDexMessage(pools):
 {"Pool:":<27}{pool['chainId']}-{pool['dexId']}{label}
 {"Current Price:":<20}{"$" + pretty_print_numbers(pool['priceUsd'])}
 {"24 Change:":<20}{pool['priceChange']['h24']:.2f}%
+{"Token addr:":<20}{pool['baseToken']['address']}
 {pool['url']}
 """
     return message
