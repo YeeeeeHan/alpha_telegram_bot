@@ -2,6 +2,7 @@ import requests
 
 from coins import formatCoinMessage, get_coin_data
 from config import bot
+from dex import formatDexMessage, get_dex_data
 from pendle import formatPendleMessage, get_pendle_data, last_check
 from scheduler import start_schedule
 from utils import formatInputForMarkdown
@@ -38,6 +39,32 @@ def coin_price_check(message):
             formatInputForMarkdown(formatCoinMessage(
                 id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, currentprice, price_change)),
             parse_mode='MarkdownV2')
+
+    except Exception as e:
+        bot.send_message(
+            message.chat.id,
+            formatInputForMarkdown(f"{e}"),
+            parse_mode='MarkdownV2')
+        return
+
+# Handle /dex command
+
+
+@bot.message_handler(commands=['dex'])
+def coin_price_check(message):
+    command_parts = message.text.split(maxsplit=1)
+    if len(command_parts) != 2:
+        return
+
+    coin_id = command_parts[1]
+    try:
+        pools = get_dex_data(
+            coin_id)
+        bot.send_message(
+            message.chat.id,
+            formatInputForMarkdown(formatDexMessage(
+                pools)),
+            parse_mode='MarkdownV2', disable_web_page_preview=True)
 
     except Exception as e:
         bot.send_message(
