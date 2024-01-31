@@ -11,11 +11,14 @@ from utils import formatInputForMarkdown
 # Handle /pendle command
 @bot.message_handler(commands=['pendle'])
 def pendle_price_check(message):
-    data_YTeeth, data_YTrseth = get_pendle_data()
+    data_YTeeth, data_YTrseth, price_YTeeth, price_YTrseth = get_pendle_data()
 
-    reply = formatPendleMessage(data_YTeeth, data_YTrseth)
+    reply = formatPendleMessage(
+        data_YTeeth, data_YTrseth, price_YTeeth, price_YTrseth)
     last_check["yt_eeth_apy"] = data_YTeeth
     last_check["yt_rseth_apy"] = data_YTrseth
+
+    print(f"[ChatID: {message.chat.id}]Sending message: {reply}")
 
     bot.send_message(
         message.chat.id,
