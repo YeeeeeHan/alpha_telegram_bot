@@ -59,14 +59,11 @@ def get_coin_data(coin_id):
     if coin_data.get('error') is not None:
         raise (f"{coin_data['error']}")
 
-    marketcap = 0 if coin_data['market_data']["market_cap"]["usd"] is None else coin_data['market_data']["market_cap"]["usd"]
-    fdv = 0 if coin_data['market_data']["fully_diluted_valuation"][
-        "usd"] is None else coin_data['market_data']["fully_diluted_valuation"]["usd"]
-    market_cap_fdv_ratio = 0 if coin_data['market_data'][
-        "market_cap_fdv_ratio"] is None else coin_data['market_data']["market_cap_fdv_ratio"]
-    current_price = 0 if coin_data['market_data']["current_price"][
-        "usd"] is None else coin_data['market_data']["current_price"]["usd"]
-    price_change = 0 if coin_data['market_data']["price_change_percentage_24h"] is None else coin_data['market_data']["price_change_percentage_24h"]
+    marketcap = coin_data['market_data']["market_cap"]["usd"]
+    fdv = coin_data['market_data']["fully_diluted_valuation"]["usd"]
+    market_cap_fdv_ratio = coin_data['market_data']["market_cap_fdv_ratio"]
+    current_price = coin_data['market_data']["current_price"]["usd"]
+    price_change = coin_data['market_data']["price_change_percentage_24h"]
 
     return id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, current_price, price_change
 
