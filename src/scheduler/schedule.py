@@ -20,7 +20,7 @@ def start_schedule():
     schedule_thread.start()
 
     # Schedule the message
-    price_alert()
-    schedule.every().minute.do(price_alert)
+    # price_alert()
+    # schedule.every().minute.do(price_alert)
     dex_price_alert()
     schedule.every().minute.do(dex_price_alert)
