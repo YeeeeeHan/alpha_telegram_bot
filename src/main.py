@@ -50,9 +50,8 @@ def coin_price_check(message):
             parse_mode='MarkdownV2')
         return
 
+
 # Handle /dex command
-
-
 @bot.message_handler(commands=['dex'])
 def coin_price_check(message):
     command_parts = message.text.split(maxsplit=1)
