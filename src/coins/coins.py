@@ -27,6 +27,16 @@ def calculatePercentageChange(new, old):
 
 
 def formatCoinMessage(id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, currentprice, price_change):
+    if currentprice is None:
+        currentprice = 0
+    if price_change is None:
+        price_change = 0
+    if marketcap is None:
+        marketcap = 0
+    if fdv is None:
+        fdv = 0
+    if market_cap_fdv_ratio is None:
+        market_cap_fdv_ratio = 0
     return f"""
 *_{name} ${symbol}_*
 {"Current Price:":<20}{"$" + pretty_print_numbers(currentprice)}
