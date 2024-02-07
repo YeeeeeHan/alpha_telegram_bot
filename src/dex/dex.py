@@ -36,6 +36,7 @@ def formatDexMessage(pools):
         message += f"""
 *_{pool['baseToken']['symbol']}/{pool['quoteToken']['symbol']}_*
 {"Pool:":<27}{pool['chainId']}-{pool['dexId']}{label}
+{"Current Price:":<20}{pretty_print_numbers(pool['priceNative'])} ETH
 {"Current Price:":<20}{"$" + pretty_print_numbers(pool['priceUsd'])}
 {"24 Change:":<20}{pool['priceChange']['h24']:.2f}%
 {"Token addr:":<20}{pool['baseToken']['address']}
