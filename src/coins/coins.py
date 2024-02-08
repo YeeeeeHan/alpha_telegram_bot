@@ -69,11 +69,30 @@ def get_coin_data(coin_id):
     if coin_data.get('error') is not None:
         raise (f"{coin_data['error']}")
 
-    marketcap = coin_data['market_data']["market_cap"]["usd"]
-    fdv = coin_data['market_data']["fully_diluted_valuation"]["usd"]
-    market_cap_fdv_ratio = coin_data['market_data']["market_cap_fdv_ratio"]
-    current_price = coin_data['market_data']["current_price"]["usd"]
-    price_change = coin_data['market_data']["price_change_percentage_24h"]
+    if coin_data.get('market_data') is None:
+        raise (f"Market data not found for {coin_id}")
+
+    marketcap = 0
+    fdv = 0
+    market_cap_fdv_ratio = 0
+    current_price = 0
+    price_change = 0
+
+    if coin_data['market_data'].get("market_cap") is not None:
+        marketcap = coin_data['market_data']["market_cap"]["usd"]
+
+    if coin_data['market_data'].get("fully_diluted_valuation") is not None:
+        if coin_data['market_data']["fully_diluted_valuation"].get("usd") is not None:
+            fdv = coin_data['market_data']["fully_diluted_valuation"]["usd"]
+
+    if coin_data['market_data'].get("market_cap_fdv_ratio") is not None:
+        market_cap_fdv_ratio = coin_data['market_data']["market_cap_fdv_ratio"]
+
+    if coin_data['market_data'].get("current_price") is not None:
+        if coin_data['market_data']["current_price"].get("usd") is not None:
+            current_price = coin_data['market_data']["current_price"]["usd"]
+    if coin_data['market_data'].get("price_change_percentage_24h") is not None:
+        price_change = coin_data['market_data']["price_change_percentage_24h"]
 
     return id, name, symbol, marketcap, fdv, market_cap_fdv_ratio, current_price, price_change
 
