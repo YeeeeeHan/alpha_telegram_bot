@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 from coins import formatCoinMessage, get_coin_data
@@ -87,4 +89,14 @@ def handle_all_messages(message):
 # Run scheduler
 start_schedule()
 
-bot.polling()
+while True:
+    try:
+        bot.polling()
+    except ConnectionError as e:
+        print(f"ConnectionError: {e}")
+        print("Retrying in 5 seconds...")
+        time.sleep(5)  # Wait for 5 seconds before retrying
+    except Exception as e:
+        print(f"Unhandled error: {e}")
+        print("Exiting...")
+        break
