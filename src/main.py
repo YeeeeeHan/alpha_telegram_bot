@@ -97,6 +97,12 @@ while True:
         print("Retrying in 5 seconds...")
         time.sleep(5)  # Wait for 5 seconds before retrying
     except Exception as e:
+        # If "Read timed out" is within error message, retry
+        if ("Read timed out" in str(e)):
+            print(f"Read timed out: {e}")
+            print("Retrying in 5 seconds...")
+            time.sleep(5)
+            continue
         print(f"Unhandled error: {e}")
         print("Exiting...")
         break
